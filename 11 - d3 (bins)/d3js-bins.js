@@ -7,6 +7,8 @@ class D3jsBins {
     this.y = [Infinity, -Infinity],
     this.w = 800;
     this.h = 600;
+    
+    this.n = 100;
 
     this.createSvg();
   }
@@ -33,10 +35,10 @@ class D3jsBins {
   }
 
   computeBins() {
-    let n = 10;
-    let s = (this.x[1] - this.x[0]) / (n - 1);
+    // let n = 10;
+    let s = (this.x[1] - this.x[0]) / (this.n);
 
-    for (let id=0; id < 10; id++) {
+    for (let id=0; id < this.n; id++) {
       this.bins.push(0);
     }
 
@@ -53,9 +55,9 @@ class D3jsBins {
     this.svg.selectAll('rect')
       .data(this.bins)
       .join('rect')
-      .attr('x', (d, i) => i * this.w / 10 + 10)
+      .attr('x', (d, i) => i * this.w / this.n)
       .attr('y', d => this.h * ( 1 - (d - this.y[0]) / (this.y[1] - this.y[0]) ))
-      .attr('width' , () => this.w / 10 - 20)
+      .attr('width' , () => this.w / this.n - (200/this.n))
       .attr('height' , d => this.h - this.h * ( 1 - (d - this.y[0]) / (this.y[1] - this.y[0]) ))
       .style('fill', 'RoyalBlue')
     }
